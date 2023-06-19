@@ -1,0 +1,31 @@
+//Here's an example of creating a decision tree with a dataset containing 10 entries using Python's scikit-learn library:
+from sklearn.tree import DecisionTreeClassifier
+
+# Define the dataset
+X = [[25, 'Male', 'Employed'],
+     [32, 'Female', 'Unemployed'],
+     [45, 'Male', 'Employed'],
+     [30, 'Female', 'Employed'],
+     [35, 'Male', 'Unemployed'],
+     [28, 'Male', 'Employed'],
+     [40, 'Female', 'Employed'],
+     [27, 'Female', 'Unemployed'],
+     [38, 'Male', 'Unemployed'],
+     [42, 'Female', 'Employed']]
+
+y = ['No', 'No', 'Yes', 'Yes', 'No', 'Yes', 'Yes', 'No', 'No', 'Yes']  # Corresponding labels
+
+# Create a decision tree classifier
+clf = DecisionTreeClassifier()
+
+# Train the classifier using the dataset
+clf.fit(X, y)
+
+# Make predictions on new data
+X_test = [[29, 'Female', 'Employed'],
+          [33, 'Male', 'Unemployed']]
+y_pred = clf.predict(X_test)
+
+In this example, the dataset consists of 10 entries, where each entry has different features (age, gender, employment status). The corresponding labels indicate whether a certain condition is met (e.g., 'Yes' or 'No'). We create a DecisionTreeClassifier and train it using the dataset. Then, we can use the trained classifier to make predictions on new data points by calling the predict method.
+
+print("Predicted labels:", y_pred)

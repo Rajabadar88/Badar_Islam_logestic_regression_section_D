@@ -1,0 +1,46 @@
+import weka.core.Instances;
+import weka.core.converters.ConverterUtils.DataSource;
+import weka.classifiers.trees.REPTree;
+import weka.classifiers.Evaluation;
+import weka.classifiers.functions.Logistic;
+
+public class LogisticRegressionWithDecisionTree {
+    public static void main(String[] args) {
+        try {
+            // Load the dataset
+            DataSource source = new DataSource("path/to/your/dataset.arff");
+            Instances data = source.getDataSet();
+            if (data.classIndex() == -1) {
+                data.setClassIndex(data.numAttributes() - 1);
+            }
+            
+            // Create a logistic regression model
+            Logistic logisticReg = new Logistic();
+            
+            // Create a decision tree model
+            REPTree tree = new REPTree();
+            
+            // Set the logistic regression model as the base learner for the decision tree
+            tree.setClassifier(logisticReg);
+            
+            // Build the models
+            tree.buildClassifier(data);
+            logisticReg.buildClassifier(data);
+            
+            // Evaluate the models
+            Evaluation evalTree = new Evaluation(data);
+            Evaluation evalLogisticReg = new Evaluation(data);
+            evalTree.evaluateModel(tree, data);
+            evalLogisticReg.evaluateModel(logisticReg, data);
+            
+            // Print the results
+            System.out.println("Decision Tree Evaluation:");
+            System.out.println(evalTree.toSummaryString());
+            
+            System.out.println("Logistic Regression Evaluation:");
+            System.out.println(evalLogisticReg.toSummaryString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
